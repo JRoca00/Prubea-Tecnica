@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="report_patients"
+        string="Datos del Paciente"
+        model="vertical.hospital"
+        report_type="qweb-pdf"
+        name="vertical_hospital.patients_report"
+        file="vertical_hospital.patients_report"
+    />
+</odoo>

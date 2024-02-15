@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!--Vista tree de pacientes-->
+        <record id="view_tree_vertical_hospital" model="ir.ui.view">
+            <field name="name">vertical.hospital.tree</field>
+            <field name="model">vertical.hospital</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Secuencia"/>
+                    <field name="patient_name" string="Nombre"/>
+                    <field name="patient_last_name" string="Apellido"/>
+                    <field name="dni" string="DNI"/>
+                    <field name="state" decoration-success="state == 'high'" decoration-info="state == 'low'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista formulario pacientes-->
+        <record id="view_form_vertical_hospital" model="ir.ui.view">
+            <field name="name">vertical.hospital.form</field>
+            <field name="model">vertical.hospital</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable':1}" statusbar_visible="draft,high,low" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name" readonly="1" style="font-size: 24px; font-weight: bold; color: #7E6EAC;"/>
+                            <group>
+                                <field name="patient_name" required="1"/>
+                                <field name="patient_last_name"/>
+                                <field name="dni"/>
+                            </group>
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                                <field name="process_date" />
+                                <field name="treatment_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"/>
+                                <field name="cod_treatment" attrs="{'invisible': [('treatment_id', '=', False)]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Inicializacion de vistas paciente-->
+        <record id="action_vertical_hospital" model="ir.actions.act_window">
+            <field name="name">Menu Pacientes</field>
+            <field name="res_model">vertical.hospital</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+
+
+        <!--Vista tree de tratamientos-->
+        <record id="view_tree_vertical_hospital_treatment" model="ir.ui.view">
+            <field name="name">vertical.hostpital.treatment.tree</field>
+            <field name="model">vertical.hostpital.treatment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="cod" string="Códigos de Tratamiento"/>
+                    <field name="name" string="Nombre del Tratamiento"/>
+                    <field name="doctor_name" string="Médico tratante"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista formulario tratamientos-->
+        <record id="view_form_vertical_hospital_treatment" model="ir.ui.view">
+            <field name="name">vertical.hostpital.treatment.form</field>
+            <field name="model">vertical.hostpital.treatment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="cod" string="Códigos de Tratamiento"/>
+                            <field name="name" string="Nombre del Tratamiento"/>
+                            <field name="doctor_name" string="Médico tratante"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Inicializacion de vistas tratamientos-->
+        <record id="action_vertical_hospital_treatment" model="ir.actions.act_window">
+            <field name="name">Menu tratamientos</field>
+            <field name="res_model">vertical.hostpital.treatment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_root" name="Hospital" sequence="10"/>
+        <menuitem id="menu_patient" parent="menu_root" name="Pacientes" action="action_vertical_hospital"/>
+        <menuitem id="menu_treatment" parent="menu_root" name="Tratamiento" action="action_vertical_hospital_treatment"/>
+
+
+
+    </data>
+</odoo>
